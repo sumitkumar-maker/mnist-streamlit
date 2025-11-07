@@ -2,6 +2,7 @@ import streamlit as st
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
+import torchvision.transforms.functional as TF
 from PIL import Image
 
 # Neural Network Definition
@@ -42,6 +43,7 @@ uploaded = st.file_uploader("Upload Image", type=["png","jpg","jpeg"])
 
 if uploaded:
     img = Image.open(uploaded).convert("L")
+    img = TF.invert(img)
     st.image(img, caption="Uploaded Image", width=200)
 
     img_tensor = transform(img).unsqueeze(0)
